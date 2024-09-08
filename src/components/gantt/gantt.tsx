@@ -238,7 +238,7 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
     if (taskListRef.current) {
       setTaskListWidth(taskListRef.current.offsetWidth);
     }
-  }, [taskListRef, listCellWidth]);
+  }, [taskListRef, listCellWidth, TaskListTable]);
 
   useEffect(() => {
     if (wrapperRef.current) {
