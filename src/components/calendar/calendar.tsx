@@ -20,6 +20,7 @@ export type CalendarProps = {
   columnWidth: number;
   fontFamily: string;
   fontSize: string;
+  customColumn?: (date: Date) => ReactChild;
 };
 
 export const Calendar: React.FC<CalendarProps> = ({
@@ -31,6 +32,7 @@ export const Calendar: React.FC<CalendarProps> = ({
   columnWidth,
   fontFamily,
   fontSize,
+  customColumn,
 }) => {
   const getCalendarValuesForYear = () => {
     const topValues: ReactChild[] = [];
@@ -225,22 +227,34 @@ export const Calendar: React.FC<CalendarProps> = ({
         .getDate()
         .toString()}`;
 
-      bottomValues.push(
-        <text
-          key={date.getTime()}
-          y={headerHeight * 0.8}
-          x={columnWidth * i + columnWidth * 0.5}
-          className={styles.calendarBottomText}
-        >
-          {bottomValue}
-        </text>
-      );
+      const bottomValueElement =
+        customColumn instanceof Function ? (
+          <foreignObject
+            key={date.getTime()}
+            y={headerHeight * 0}
+            x={columnWidth * i + 0}
+            width={columnWidth}
+            height={headerHeight}
+          >
+            {customColumn(date)}
+          </foreignObject>
+        ) : (
+          <text
+            key={date.getTime()}
+            y={headerHeight * 0.8}
+            x={columnWidth * i + columnWidth * 0.5}
+            className={styles.calendarBottomText}
+          >
+            {bottomValue}
+          </text>
+        );
+
+      bottomValues.push(bottomValueElement);
       if (
         i + 1 !== dates.length &&
         date.getMonth() !== dates[i + 1].getMonth()
       ) {
         const topValue = getLocaleMonth(date, locale);
-
         topValues.push(
           <TopPartOfCalendar
             key={topValue + date.getFullYear()}

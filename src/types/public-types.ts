@@ -1,3 +1,5 @@
+import { CalendarProps } from "../components/calendar/calendar";
+
 export enum ViewMode {
   Hour = "Hour",
   QuarterDay = "Quarter Day",
@@ -83,6 +85,7 @@ export interface DisplayOption {
    */
   locale?: string;
   rtl?: boolean;
+  customCalendarColumn?: CalendarProps["customColumn"],
 }
 
 export interface StylingOption {

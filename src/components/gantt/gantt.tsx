@@ -58,6 +58,7 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
   TooltipContent = StandardTooltipContent,
   TaskListHeader = TaskListHeaderDefault,
   TaskListTable = TaskListTableDefault,
+  customCalendarColumn,
   onDateChange,
   onProgressChange,
   onDoubleClick,
@@ -238,7 +239,7 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
     if (taskListRef.current) {
       setTaskListWidth(taskListRef.current.offsetWidth);
     }
-  }, [taskListRef, listCellWidth, TaskListTable]);
+  }, [taskListRef, listCellWidth, TaskListTable, columnWidth]);
 
   useEffect(() => {
     if (wrapperRef.current) {
@@ -405,6 +406,7 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
     fontFamily,
     fontSize,
     rtl,
+    customColumn: customCalendarColumn,
   };
   const barProps: TaskGanttContentProps = {
     tasks: barTasks,
